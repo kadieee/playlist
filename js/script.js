@@ -49,6 +49,7 @@ var myPlayList = [
 		"imageURL": "https://images-na.ssl-images-amazon.com/images/I/51hGF-ePp1L._AC_US500_FMwebp_QL65_.jpg",
 		"playURL": "https://open.spotify.com/track/7cGfrVoC7G03XeXn7yflx5",
 	}
+	
 
 ]
 
@@ -57,39 +58,60 @@ var myPlayList = [
 // DOCUMENT READY FUNCTION
 $( document ).ready(function() {
 	// everything inside this function happens as soon as the page loads!
-	displaySong(mySong);
-
+	displayList(myPlayList);
+	$("#button").click(function(){
+		clearList();
+		addSong();
+		displayList(myPlayList);
+		
+	});
 });
 // displaySong uses the properties in the songObject to create an HTML element for a single song
 //	  and appends the element to the playlist on the page
 
+
 function displaySong(songObject){
-    $("body").append("<div id='songInfo'></div>");
-	$("#songInfo").append("<p>" + mySong.title + "</p>");
-    $("#songInfo").append("<p>" + mySong.artist + "</p>");
-    $("#songInfo").append('<img src="' + mySong.imageURL + '"</p>');
-    $("#songInfo").append('<a href="' + mySong.playURL + '"> Play Song</a>');
+    $(".songs").append("<div id='songInfo'></div>");
+	$("#songInfo").append("<p>" + songObject.title + "</p>");
+    $("#songInfo").append("<p>" + songObject.artist + "</p>");
+    $("#songInfo").append('<img src="' + songObject.imageURL + '"</p>');
+    $("#songInfo").append('<a href="' + songObject.playURL + '"> Play Song</a>');
 }
 
 
 // displayList takes in an array of song objects, and it uses the information from each song object
 //    to create an HTML element and append it to the playlist on the page
 function displayList(songsArray){
-
-
-
+	for (var i = 0; i < songsArray.length; i++){
+	    displaySong(songsArray[i]);
+	} 
 }
 
 // clearList removes all the content from the playlist on the page
-function clearList(){
 
+function clearList(){
+	$(".songs").text(" ");
+	console.log("hello");
 
 
 }
 
-// addSong takes inputs from the input boxes, organizes them into a new song object, and
+// addSong takes inputs from the input boxes, organizes them into a new song object //make new song objects with the inputs, and
 //    pushes a new song to the playlist array
 function addSong(){
+
+		var titleInput = $("#title").val();
+		var artistInput = $("#artist").val();
+		var imageInput= $("#album-image").val();
+		var playInput= $("#play-link").val();
+		var song = {
+			"title": titleInput,
+			"artist": artistInput,
+			"imageURL": imageInput,
+			"playURL": playInput,
+		}
+
+	myPlayList.push(song);
 
 
 
